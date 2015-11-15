@@ -20,4 +20,9 @@ connect to the board via http :
     
     
 ### Linino 
-Now you can meet the Linino system (based on WRT) 
+Now you can meet the Linino system (based on WRT) installed on the Arduino Yun board, to get more infor about it following the official documentation. To install package on the Linino environment use the dpkg, remember to update the packages list every time, because there are no persistent memory on Yun for save all the packages list! The list will be saved in the RAM once and when the board is shutdown the list won't be on the board next start ! 
+
+    opkg update 
+    opkg install vim      // for example 
+    
+

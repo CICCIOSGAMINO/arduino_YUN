@@ -25,4 +25,16 @@ Now you can meet the Linino system (based on WRT) installed on the Arduino Yun b
     opkg update 
     opkg install vim      // for example 
     
+Remember to set the current time and location configuration on the board, you can do that from Luci environment in System 
+tab click > Sync with Browser ! 
+
+### Expand Memory 
+One common operation to do on the Arduino Yun board, is expand the OpenWRT filesystem and the memory on the microSD card, 
+for do that follow the official arduino [link][1], with more memory for the OS file system we can think to install programs such as Node.js, JoHnny5, Autobhan and many more ... 
+
+
+
+
+[1]:https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace
+    
 

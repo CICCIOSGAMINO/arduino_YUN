@@ -48,7 +48,11 @@ For install Node.js if you do not need the last version use the OpenWRT package,
     $ npm --version
     > 1.4.28
     
-    
+### Node.js Modules - serialport
+If you are a Node.js fan, you probably want to use your favourite modules. Unfortunately, not every Node.js module is “pure javascript”, so some modules won’t work on the Yún. We are solving this by preparing packages for the most common native Node.js modules. We have already prepared node-serialport :
+
+    $ opkg update
+    $ opkg install node-serialport
 
 
     

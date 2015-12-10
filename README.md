@@ -55,6 +55,14 @@ If you are a Node.js fan, you probably want to use your favourite modules. Unfor
     $ opkg install node-serialport
 
 
+### Disabling the Bridge Script
+We need to disable the YUN's bridge so we can take control of the serialport interface.To remove the bridge setup from the YUN's inittab script and Edit the **/etc/inittab** file to comment out the ttyATH0 line (put a # before it) When you're done, the file should look like this:
+
+    ::sysinit:/etc/init.d/rcS S boot
+    ::shutdown:/etc/init.d/rcS K shutdown
+    #ttyATH0::askfirst:/bin/ash --login
+    
+After you're done, restart the YUN with a long press of the YUN RST button.
     
 
 

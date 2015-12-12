@@ -64,8 +64,76 @@ So when you run out of this 18+ MB free memory in RAM, we will run in to fatal e
     -/+ buffers:              25472        35644
     Swap:            0            0            0
     
-So we can notice the SWAP memory is zero ! So we need to add some SWAP ... 
+So we can notice the SWAP memory is zero ! So we need to add some SWAP ... (/dev/zero is a special file in Unix-like operating systems that provides as many null characters (ASCII NUL, 0x00), uses is to provide a character stream for initializing data storage) here you can find a well done [document][2] to follow  : 
 
+Will create a 512 MB swap file named yunswapfile in folder "/swap"and fill it with zero
+    
+    $ cd /
+    $ mkdir swap 
+    
+    $ dd if=/dev/zero of=/swap/yunswapfile bs=1M count=512
+    > 512+0 records in
+      512+0 records out
+      
+The step above just created an empty file. To make sure it can be used as a swap file, run this from the shell : 
+
+    mkswap /swap/yunswapfile 
+    > Setting up swapspace version 1, size = 524284 KiB
+      no label, UUID=04f5d774-36d4-4b75-bc9c-f40190c03900
+      
+To verify that the swap file is good, try to load it by running this:
+
+    swapon /swap/yunswapfile
+ 
+This will not provide any output if everything is cool. So verify by checking free memory.
+
+    free -mh 
+    > total         used         free       shared      buffers
+      Mem:         61116        59376         1740            0        12436
+      -/+ buffers:              46940        14176
+      Swap:       524284            0       524284
+      
+So now we have built the SWAP memory to use, there is a last step to do in order to start to use the SWAP ! If you stop with Step previus next time when you restart your Yun (linux part..either through power off/on or the Linux reset button near the LEDs) the swap file will not have been loaded. So to make sure that its gets loaded every time, you need to set the swap file as part of boot sequence.
+ 
+**So now it's time for the fstab configuration**, The Fstab, or file systems table, is a central configuration that defines how file systems (usually on block devices) should be mounted if requested (such as on booting the device or connecting it physically). This way, you don't have to manually mount your devices when you want to access them. The mounting configuration can consist of static file systems but also swap partitions. The fstab UCI configuration file is where all the options for all devices and file systems to be mounted are defined and is located at…
+
+    /etc/config/fstab
+    > config global automount
+    	option from_fstab 1
+    	option anon_mount 1
+    	
+    config global autoswap
+    	option from_fstab 1
+    	option anon_swap 0
+
+Here the commands to execute to fix the new swap memory in the fstab table partition : 
+
+    //add swap config entry to fstab
+    $ uci add fstab swap
+    
+    // set device config entry to swap. make sure you provide your full swap file name
+    $ uci set fstab.@swap[0].device=/swap/yunswapfile
+    
+    // set swap is enabled
+    $ uci set fstab.@swap[0].enabled=1
+    
+    // set file system type as "swap"
+    $ uci set fstab.@swap[0].fstype=swap
+
+    // set options to default
+    $ uci set fstab.@swap[0].options=default
+
+    // set fsck to 0
+    $ uci set fstab.@swap[0].enabled_fsck=0
+ 
+    // Commit the config changes. if you don't run commit, the config changes will not be added
+    $ uci commit
+
+That's it. Done. Restart the Linux part of Yun (reset button near LEDs). After reboot, if you run "free -m" you should see the Swap file loaded. You have successfully expanded the RAM on your Arduino Yun's linux side.
+
+    free -mh 
+    > ... 
+      Swap:       524284            0       524284
  
 
 
@@ -83,5 +151,6 @@ After you're done, restart the YUN with a long press of the YUN RST button.
 
 
 [1]:https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace
+[2]:http://www.element14.com/community/groups/arduino/blog/2014/12/19/part-x3-arduino-yun-extending-the-ram
     
 

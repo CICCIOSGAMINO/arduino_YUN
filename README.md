@@ -53,6 +53,12 @@ If you are a Node.js fan, you probably want to use your favourite modules. Unfor
 
     $ opkg update
     $ opkg install node-serialport
+    
+### Swap Memory 
+Ok now Node.js is installed but when i tried to install some more node packages using node package manager (npm) i ran in to "out of memory" issue. Arduino Yun have only 16MB Flash Memory (10 used by OpenWRT), RAM 64MB but only 18/20 MB of this will be free for you to run other process. 
+
+So when you run out of this 18+ MB free memory in RAM, we will run in to fatal error.To avoid this you should set up a swap file or a swap partition for the Linux side of the Yun. When you expand disk space as described here, the YunDiskSpaceExpander sketch doesn’t set up a swap partition by default.  So we have to create a swap file that can be used by openwrt-yun to avoid running out of RAM memory.
+ 
 
 
 ### Disabling the Bridge Script

@@ -141,7 +141,32 @@ First thing to do after the swap creaation is update npm :
     npm install -g npm 
     
 with npm updated you can try to install the packages you want ! 
+
+
+### Johnny5
+Maybe you can run all this documents only to install Johnny-Five the Robot framework on the Arduino Yun ? Uhh good choice, so launch the last line of code : 
+
+    mkdir test-j5
+    npm init 
+    npm install --save johnny-five 
+    
+On the Arduino Yun Board load the sketch you can find in File > Example > Firmata > StandardFirmataYun, write a little bit of code to check if it's works : 
+
+    // Node.js - Simple Johnny Five test
+    var j5 = require('johnny-five');
+    var board = new j5.Board({
+        port:'/dev/ttyACM0'
+    });
+    
+    board.on('ready', function(){
+        var led = new j5.Led(7);
+    
+        // Blink the LED
+        led.blink(500);
+    });
  
+ 
+ Well done, in my case all the job is done and the led number 7 blink like a boss every 500 ms ! i hope your too ... 
 
 
 ### Disabling the Bridge Script

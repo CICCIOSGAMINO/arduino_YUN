@@ -134,6 +134,13 @@ That's it. Done. Restart the Linux part of Yun (reset button near LEDs). After r
     free -mh 
     > ... 
       Swap:       524284            0       524284
+      
+### Update npm 
+First thing to do after the swap creaation is update npm : 
+
+    npm install -g npm 
+    
+with npm updated you can try to install the packages you want ! 
  
 
 

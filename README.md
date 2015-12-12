@@ -57,7 +57,15 @@ If you are a Node.js fan, you probably want to use your favourite modules. Unfor
 ### Swap Memory 
 Ok now Node.js is installed but when i tried to install some more node packages using node package manager (npm) i ran in to "out of memory" issue. Arduino Yun have only 16MB Flash Memory (10 used by OpenWRT), RAM 64MB but only 18/20 MB of this will be free for you to run other process. 
 
-So when you run out of this 18+ MB free memory in RAM, we will run in to fatal error.To avoid this you should set up a swap file or a swap partition for the Linux side of the Yun. When you expand disk space as described here, the YunDiskSpaceExpander sketch doesn’t set up a swap partition by default.  So we have to create a swap file that can be used by openwrt-yun to avoid running out of RAM memory.
+So when you run out of this 18+ MB free memory in RAM, we will run in to fatal error.To avoid this you should set up a swap file or a swap partition for the Linux side of the Yun. When you expand disk space as described here, the YunDiskSpaceExpander sketch doesn’t set up a swap partition by default.  So we have to create a swap file that can be used by openwrt-yun to avoid running out of RAM memory. Run command free to check the amount of free and used memory : 
+
+     total         used         free       shared      buffers
+    Mem:         61116        55356         5760            0        29884
+    -/+ buffers:              25472        35644
+    Swap:            0            0            0
+    
+So we can notice the SWAP memory is zero ! So we need to add some SWAP ... 
+
  
 
 

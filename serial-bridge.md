@@ -33,4 +33,29 @@ To find the serial port used for the communication with the
       [    0.640000] ar933x-uart: ttyATH0 at MMIO 0x18020000 (irq = 11) is a AR933X UART
       [    0.640000] console [ttyATH0] enabled, bootconsole disabled
       
-  So to communicate with the Arduino chip (AR933X) we use the **ttyATH0** serial port. 
+So to communicate with the Arduino chip (AR933X) we use the **ttyATH0** serial port. 
+  
+### Serial1 Sketch 
+In order to have a data exchange between the OpenWRT and Arduino environment, we're going to load a simple skecth on the Arduino : 
+
+    long baud = 57600;
+
+    void setup() {
+  
+        Serial1.begin(baud);
+    }
+
+    void loop() {
+  
+        Serial1.println("Serial1 (sec):" + String(millis()/1000));
+        delay(1000);
+    
+    }
+    
+and you can easily listen on the OpenWRT side with a simple cat command : 
+
+    sudo cat /dev/ttyATH0
+    > Serial1 (sec): 1
+    Serial1 (sec): 2
+    Serial1 (sec): 3
+    ... 

@@ -178,7 +178,6 @@ We need to disable the YUN's bridge so we can take control of the serialport int
     
 After you're done, restart the YUN with a long press of the YUN RST button.
 
-### Happy XMas 
     
 
 

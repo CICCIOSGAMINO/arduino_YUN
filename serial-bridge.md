@@ -59,3 +59,6 @@ and you can easily listen on the OpenWRT side with a simple cat command :
     Serial1 (sec): 2
     Serial1 (sec): 3
     ... 
+
+### More Complex Operation 
+For more complex operation swith to the othe documents and install a serial library in language you prefer, for example pySerial or serial di Node.js . More well defined library are necessary for deal with the serial comunication due a lack of bits in trasmission, errors happened on unsafe channel ! 
